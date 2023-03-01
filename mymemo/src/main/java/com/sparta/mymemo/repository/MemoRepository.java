@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface MemoRepository extends JpaRepository<Memo, Long> {
     List<Memo> findAllByOrderByModifiedAtDesc();
+//    List<Memo> findByContentsAndTitleAndUserNameaAndCreatedAt
+//    여러개의 컬럼명을 가져오려면 위처럼 해야하는데 너무 비효율적
 }
