@@ -14,28 +14,35 @@ import java.util.List;
 public class MemoController {
 
     private final MemoService memoService;
+//    private final TimeStamped timeStamped;
 
     @GetMapping("/")
     public ModelAndView home() {
         return new ModelAndView("index");
     }
 
-    @PostMapping("/api/memos") // 글쓰기
+    @PostMapping("/api/memos") // 글 생성
     public Memo createMemo(@RequestBody MemoRequestDto requestDto) { // dto를 문자열로 받아오겠다 ?
         return memoService.createMemo(requestDto);
     }
 
-    @GetMapping("/api/memos") // 글조회
+    @GetMapping("/api/memos") // 전체 글 조회
     public List<Memo> getMemos() {
         return memoService.getMemos();
     }
 
-    @PutMapping("/api/memos/{id}")
-    public Long updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto) {
+    @GetMapping("/api/memos/{id}") // 선택 글 조회
+    public Memo getMemo(@PathVariable Long id/*url에서 입력한id*/) {
+        return memoService.getMemo(id/*url에서 입력한id*/); // service의 getmemo메서드에 id값을 가져감
+        // 마지막 단계 - service에서 리턴한 memo가 바로 memoService.getMemo(id)로 되어 출력
+    }
+
+    @PutMapping("/api/memos/{id}") // 글 수정
+    public Long updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto) {// body에 dto를 json형식으로 받음
         return memoService.updateMemo(id, requestDto);
     }
 
-    @DeleteMapping("/api/memos/{id}")
+    @DeleteMapping("/api/memos/{id}") // 글 삭제
     public String deleteMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto) {
         return memoService.deleteMemo(id, requestDto);
     }

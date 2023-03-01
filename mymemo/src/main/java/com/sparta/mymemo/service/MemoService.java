@@ -15,32 +15,40 @@ public class MemoService {
 
     private final MemoRepository memoRepository;
 
-    @Transactional
+    @Transactional // 글 생성
     public Memo createMemo(MemoRequestDto requestDto) {
         Memo memo = new Memo(requestDto);
         memoRepository.save(memo);
         return memo;
     }
 
-    @Transactional(readOnly = true) // 글 조회
+    @Transactional(readOnly = true) // 전체 글 조회
     public List<Memo> getMemos() {
         return memoRepository.findAllByOrderByModifiedAtDesc();
     }
 
-    @Transactional
-    public Long updateMemo(Long id, MemoRequestDto requestDto) { // 글 수정
-        Memo memo = memoRepository.findById(id).orElseThrow(
+    @Transactional // 선택 글 조회
+    public Memo getMemo(Long id/*controller에서 가져온 id값*/) {
+        Memo memo = memoRepository.findById(id/*controller에서 가져온 id값*/).orElseThrow(
                 () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")// 오류 발생시
         );
+        return memo; // 아이디 일치하면 controller로 memo리턴
+    }
+
+    @Transactional // 글 수정
+    public Long updateMemo(Long id, MemoRequestDto requestDto) {
+        Memo memo = getMemo(id); // 위에 선택 글 조회에서 같은 내용이 있어 메서드를 호출해 사용할 수 있다.
+//        memoRepository.findById(id).orElseThrow( //위와 같은 내용
+//                () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")// 오류 발생시
+//        );
         if (!memo.getPassword().equals(requestDto.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
         memo.updateMemo(requestDto); // 오류 없으면 수정해야할 메모 있다 판단. - 가지고온 데이터로 변경, memo entity에서 update메서드를 만들어 처리할거임
         return memo.getId();
-
     }
 
-    @Transactional
+    @Transactional // 글 삭제
     public String deleteMemo(Long id, MemoRequestDto requestDto) {
         Memo memo = memoRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")// 오류 발생시
@@ -51,6 +59,9 @@ public class MemoService {
 
         memoRepository.deleteById(id);
         return "삭제 완료.";
-
     }
+
+
+
+
 }
