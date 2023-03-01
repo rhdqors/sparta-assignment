@@ -1,13 +1,18 @@
-과제: 스프링 부트로 로그인 기능이 없는 나만의 블로그 백엔드 서버 만들기
-요구사항은 아래와 같다.
+# 과제
+스프링 부트로 로그인 기능이 없는 나만의 블로그 백엔드 서버 만들기 요구사항은 아래와 같다.
 
 ![image](https://user-images.githubusercontent.com/108318494/222040000-f50ee8de-3b4e-48da-b13a-b2d8fd91690c.png)
+
+***
+
+기능을 구현하기 전에 유스케이스와 API 명세서를 통해 무슨 기능이 있으며 어떤 방식으로 진행해야할지 생각해 보았고 PostMan을 통해 확인했다.
+
 ![image](https://user-images.githubusercontent.com/108318494/222040389-f2ba23d9-5822-4edc-bffe-873731fe209b.png)
 ![image](https://user-images.githubusercontent.com/108318494/222040537-a71dcbf4-d532-4a8f-ae62-0e77836ac0ca.png)
 
 ***
 
-기능을 구현하기 전에 유스케이스와 API 명세서를 통해 무슨 기능이 있으며 어떤 방식으로 진행해야할지 생각해 보았고 PostMan을 통해 확인했다.
+
 
 1. Post - Create
 ![image](https://user-images.githubusercontent.com/108318494/222040919-1936a715-3af9-422d-9100-c8f2908042f3.png)
